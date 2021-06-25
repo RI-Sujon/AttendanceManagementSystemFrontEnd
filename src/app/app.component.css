@@ -1,0 +1,47 @@
+.topPartBackground{
+    background-color: olivedrab;
+    padding: 20px;
+}
+
+.middlePartBackGround{
+    /* background-color: #8d04dd;; */
+    background-image: url(/assets/images/bg2.jpg);
+    background-repeat: round;
+    background-size: cover;
+    min-height: 1200px;
+}
+
+.bottomPartBackground{
+    background-color:darkgreen;
+    min-height: 280px;
+    padding: 20px;
+}
+
+.font-white{
+    color: white;
+}
+
+.font-navy{
+    color: navy;
+}
+
+.font-black{
+    color: black;
+}
+
+.font-large{
+    font-size: large;
+}
+
+.font-medium{
+    font-size: medium;
+}
+
+.font-small{
+    font-size: small;
+}
+
+ng-sidebar-container {
+    height: 100vh;
+}
+

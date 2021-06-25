@@ -1,0 +1,60 @@
+<br>
+
+<div class="row mt-1">
+    <div class="col-md-12">
+        <form [formGroup]="service.formModel" autocomplete="off" (submit)="addStudentAccount()">
+            <div class="form-group required">
+                <label>Student Name</label>
+                <input class="form-control" formControlName="StudentName">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('StudentName').touched && service.formModel.get('StudentName').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>BSSE Roll</label>
+                <input class="form-control" formControlName="BSSEROLL">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>Session</label>
+                <input class="form-control" formControlName="Session">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('Session').touched && service.formModel.get('Session').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>BSSE Batch No</label>
+                <input class="form-control" formControlName="BatchNo">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>Hall Name</label>
+                <input class="form-control" formControlName="HallName">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>Email</label>
+                <input class="form-control" formControlName="Email"  value="bsse@iit.du.ac.bd">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid Email Address</label> -->
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">This field is mandatory</label> -->
+
+            </div>
+            <div class="form-group required">
+                <label>Mobile Number</label>
+                <input class="form-control" formControlName="MobileNumber">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('MobileNumber').touched && service.formModel.get('MobileNumber').errors?.required">This field is mandatory</label> -->
+            </div>
+            <div class="form-group required">
+                <label>Password</label>
+                <input class="form-control" formControlName="Password" value="iit123">
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field is mandatory.</label> -->
+                <!-- <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum 4 character required.</label> -->
+            </div>
+            
+            <br>
+            <div class="form-row">
+                <div class="form-group col-md-6 offset-md-3">
+                    <button type="submit" class="btn btn-lg btn-block" >SUBMIT</button>
+                    <br>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>

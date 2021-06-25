@@ -1,0 +1,61 @@
+<div class="row tile-style-headline">
+    <div class="col-sm-1">
+        <div> ROLL </div>
+    </div>
+    <div class="col-sm-3">
+        <div> NAME </div>
+    </div>
+    <!-- <div class="col-sm-1">
+        <div> ROLL </div>
+    </div> -->
+    <div class="col-sm-2">
+        <div> SESSION </div>
+    </div>
+    <div class="col-sm-2">
+        <div> HALL NAME </div>
+    </div>
+    <div class="col-sm-3">
+        <div> EMAIL & CONTACT NO </div>
+    </div>
+    <!-- <div class="col-sm-0">
+        <div> CONTACT NO </div>
+    </div> -->
+</div>
+<div *ngFor="let student of students">
+    <div class="row tile-style">
+        <div class="col-sm-1">
+            <p> {{student.bsseroll}} </p>
+        </div>
+        <div class="col-sm-3">
+            <p> {{student.studentName}}</p>
+        </div>
+        <!-- <div class="col-sm-1">
+            <p> {{student.bsseroll}}</p>
+        </div> -->
+        <div class="col-sm-2">
+            <p>{{student.session}}</p>
+        </div>
+        <div class="col-sm-2">
+            <p>{{student.hallName}}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>{{student.email}} </p>
+            <p>{{student.mobileNumber}}</p>
+        </div>
+        
+        <div class="col-sm-1 more-div">
+            
+            <button mat-icon-button class="more" (click)="mySelect.toggle()"><mat-icon>more_vert</mat-icon></button>
+            <mat-select #mySelect> 
+                <mat-option (click)="editStudentInfo(student)">
+                    Edit Info
+                </mat-option>
+                <mat-option (click)="deleteAccount(student)">
+                    Delete
+                </mat-option>
+
+            </mat-select>
+                  
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,18 @@
+.welcome-font{
+    font-size: 56px;
+    color: white;
+    background: seagreen ;
+    width: 90%;
+    padding: 20px;
+    max-width: 700px ;
+    text-align: center ;
+}
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}

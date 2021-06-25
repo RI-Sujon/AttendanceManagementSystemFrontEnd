@@ -1,0 +1,108 @@
+<div>
+    <div class="head-style">
+        <div class="title-style">
+            {{course.courseId}} : {{course.courseName}}
+        </div>
+
+        <div class="subtitle-style">
+            <div class="subtitle-style1">BATCH: BSSE{{course.batchNo}}</div>
+
+            <br>
+            
+            <div class="subtitle-style2">{{course.teacher1Name}}<br>
+            {{course.teacher2Name}}</div>
+        </div>
+
+        <div class="bottom-of-head">
+            <button mat-icon-button class="more2"><mat-icon>more_vert</mat-icon></button>
+        </div>
+    </div>
+
+    <div>
+        <div class="left-side">
+            <div class="hello">
+                <h4>Upcoming</h4>
+                <p>Woohoo, no work due soon!</p>
+            </div>
+            <br>
+            <div class="hello" *ngIf="isTeacher">
+                <h5><b>Start New Attendence Post</b></h5>
+                <button mat-icon-button color="primary" (click)="createAttendancePost()"><mat-icon color="primary">adjust-icon</mat-icon>Start</button>
+            </div>
+        </div>
+        <div class="post-text-area-style" *ngIf="!isAdmin">
+            <div>
+                <textarea [(ngModel)]="textAreaPost" class="style" placeholder="Announce something to your class"></textarea>
+            </div>
+            <button mat-raised-button class="post-button-style" (click)="createNewPost()">Post</button>
+        </div>
+        <div *ngFor="let post of posts; let i = index">
+            <div class="post-style" *ngIf="post.postType === 'post'">
+                <div class="post-head">
+                    <div class="post-giver-icon">
+                        <mat-icon class="post-giver-icon">account_circle</mat-icon>
+                    </div>
+                    <div class="post-giver-title">
+                        <div class="post-giver-name">{{post.postGiverName}}</div>
+                        <br>
+                        <div class="post-date-time">{{post.dateAndTime | date:'medium'}}</div>
+                    </div>
+                    <div class="post-more-option">
+                        <button mat-icon-button class="more" (click)="mySelect.toggle()"><mat-icon>more_vert</mat-icon></button>
+                        <mat-select #mySelect> 
+                            <mat-option *ngIf="isTeacher || (isStudent && post.studentRollNo===bsseRoll)" (click)="deletePost(post.id)">
+                                Delete
+                            </mat-option>
+        
+                        </mat-select>
+                    </div>
+                </div>
+                
+                <div class="post-body">
+                    {{post.post}} 
+                </div>
+            </div>
+
+            <div class="post-style" *ngIf="post.postType === 'attendance'">
+                <div class="post-head">
+                    <div class="post-giver-icon">
+                        <mat-icon class="post-giver-icon">account_circle</mat-icon>
+                    </div>
+                    <div class="post-giver-title">
+                        <div class="post-giver-name">{{post.postGiverName}}</div>
+                        <br>
+                        <div class="post-date-time">{{post.dateAndTime | date:'medium'}}</div>
+                    </div>
+                    <div class="post-more-option">
+                        <button mat-icon-button class="more" (click)="mySelect.toggle()"><mat-icon>more_vert</mat-icon></button>
+                        <mat-select #mySelect> 
+                            <mat-option *ngIf="isTeacher || (isStudent && post.studentRollNo===bsseRoll)" (click)="deletePost(post.id)">
+                                Delete
+                            </mat-option>
+        
+                        </mat-select>
+                    </div>
+                </div>
+                
+                <div class="post-body-for-attendance">
+                    <br>
+                    <div class="post-body-attendance-text">Attendance</div> 
+                </div>
+                <div *ngIf="isStudent">
+                    <div *ngIf="attendanceTrack[i]==='open'"><button mat-raised-button color="primary" (click)="giveAttendance(post.dateAndTime)">Add Attendance</button></div>
+                    <div *ngIf="attendanceTrack[i]==='done'">Attendance Done</div>
+                    <div *ngIf="attendanceTrack[i]==='miss'">Attendance Missed</div>
+                </div>
+                <div *ngIf="isTeacher">
+                    <div *ngIf="post.post==='on'">
+                        <button mat-raised-button class="stop-attendance" (click)="stopAttendancePost(post.id)">Stop Attendance</button>
+                    </div>
+                    <div *ngIf="post.post==='off'">
+                        <button mat-raised-button class="start-again-attendance" (click)="startAttendancePost(post.id)">Start Again</button>
+                        Stopped
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

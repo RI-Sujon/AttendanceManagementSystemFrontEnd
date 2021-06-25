@@ -1,0 +1,30 @@
+.tile-style{
+    background-color: rgba(80, 105, 214, 0.9);
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 5px;
+    font-family: cursive;
+}
+
+.tile-style-headline{
+    background-color: rgba(9, 39, 9, 0.9);
+    padding: 10px;
+    margin: 5px;
+    font-family: ROBOTO;
+    color: aliceblue;
+}
+
+.more-div{
+    position: relative;
+}
+
+.more{
+    position: absolute;
+    top: -7px;
+}
+
+::ng-deep .mat-select-arrow { 
+    opacity: 0%; 
+    width: 0px;
+    position: absolute;
+}

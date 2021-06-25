@@ -1,0 +1,80 @@
+<div class="content-background">
+    <div class="padding">
+        <div class="subtitle-style">
+            Attendance Report
+            <hr>
+        </div>
+        
+        <div class="row">
+            <mat-form-field appearance="fill" class="col-sm-4">
+                <mat-label>Choose an option</mat-label>
+                <mat-select-trigger>{{selected}}</mat-select-trigger>
+                <mat-select placeholder="Chose an option" (selectionChange)="choiceReportOption($event)" [(value)] = "selected">
+                    <mat-option value="All">All</mat-option>
+                    <mat-option value="Daily">Daily</mat-option>
+                    <mat-option value="Monthly">Monthly</mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+            <mat-form-field *ngIf="isDailyReport" appearance="fill" class="col-sm-4">
+                <mat-label>Select Date</mat-label>
+                <mat-select-trigger>{{selectedDate | date: 'medium'}}</mat-select-trigger >
+                <mat-select (selectionChange)="dailyReport($event, '')" [(value)]="selectedDate">
+                  <mat-option *ngFor="let opt of allDateAndTime" [value]="opt">{{opt | date:'medium'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="isMonthlyReport" appearance="fill" class="col-sm-4">
+                <mat-label>Select Month</mat-label>
+                <mat-select-trigger>{{selectedMonth | date: 'LLLL, YYYY'}}</mat-select-trigger >
+                <mat-select (selectionChange)="monthlyReport($event, '')" [(value)]="selectedMonth">
+                  <mat-option *ngFor="let opt of allMonth" [value]="opt">{{opt | date:'LLLL, YYYY'}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <br><br>
+    <div class="padding-body">
+        <div class="row head-style">
+            <div class="col-sm-2 border">
+                BSSE ROLL
+            </div>
+            <div class="col-sm-4 border">
+                Student Name
+            </div>
+            
+            <div class="col-sm-2 border">
+                Attendance
+            </div>
+            <div *ngIf="isDailyReport" class="col-sm-4 border">
+                Status
+            </div>
+            <div *ngIf="!isDailyReport" class="col-sm-2 border">
+                Total Class
+            </div>
+            <div *ngIf="!isDailyReport" class="col-sm-2 border">
+                Percentage
+            </div>
+        </div>
+        <div *ngFor="let attMap of attendanceMapWithBSSEROLL_list" class="row row-style">
+            <div class="col-sm-2 row-content-border border">
+                {{attMap.bsseRoll}}
+            </div>
+            <div class="col-sm-4 row-content-border border">
+                {{attMap.studentName}}
+            </div>
+            <div class="col-sm-2 row-content-border border">
+                {{attMap.attendanceCount}}
+            </div>
+            <div *ngIf="isDailyReport" class="col-sm-4 row-content-border border">
+                {{attMap.status}}
+            </div>
+            <div *ngIf="!isDailyReport" class="col-sm-2 row-content-border border">
+                {{totalAttendancePostCounter}}
+            </div>
+            <div *ngIf="!isDailyReport" class="col-sm-2 row-content-border border">
+                {{attMap.percentage}}
+            </div>
+        </div>
+    </div>
+</div>

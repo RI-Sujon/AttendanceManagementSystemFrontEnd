@@ -1,0 +1,53 @@
+<div class="content-background">
+    <div class="padding">
+        <div class="subtitle-style">
+            Teachers
+            <hr>
+        </div>
+        
+        <div>
+            {{course.teacher1Name}} <br>
+            {{course.teacher2Name}}
+        </div>
+    </div>
+    <br><br><br>
+    <form [formGroup]="service.formModel" autocomplete="off" (submit)="addStudentToCourse()">
+        <div class="row">
+        <div class="col-sm-9 subtitle-style">
+            Classmates
+        </div>
+        <div class="col-sm-2" *ngIf="adminLoggedIn">
+                <input input class="form-control" formControlName="StudentBSSERoll" >
+        </div>
+        <div class="col-sm-1">
+            <button type="submit" mat-raised-button *ngIf="adminLoggedIn">add</button>
+        </div>
+        
+        <div class="col-sm-12">
+            <hr>
+        </div>
+        
+        </div>
+    </form>
+    <div *ngFor="let student of studentsOfCourse" class="col-sm-12">
+        <div class="row tile-style">
+            <div class="col-sm-2">
+                <p> {{student.studentBSSERoll}} </p>
+            </div>
+            <div class="col-sm-9">
+                <p> {{student.studentName}}</p>
+            </div>
+            <div class="col-sm-1 more-div" *ngIf="adminLoggedIn">
+        
+                <button mat-icon-button class="more" (click)="mySelect.toggle()"><mat-icon>more_vert</mat-icon></button>
+                <mat-select #mySelect> 
+                    <mat-option (click)="deleteStudentFromCourse(student)">
+                        Delete
+                    </mat-option>
+    
+                </mat-select>
+            </div>
+            
+        </div>
+    </div>
+</div>

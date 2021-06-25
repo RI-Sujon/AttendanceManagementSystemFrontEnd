@@ -1,0 +1,80 @@
+.tile-style{
+    background-color: rgba(255, 166, 0, 0.904);
+    font-family: 'Times New Roman';
+    border-radius: 20px;
+    height: 100%;
+    margin: 20px 20px 20px 20px;
+    /* text-align: center; */
+}
+
+.tile-margin{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.title-style{
+    font-size: large;
+    font-weight: bold;
+    color: aliceblue;
+    font-family: Segoe UI;
+    background-color: rgb(76, 83, 65);
+    margin: auto;
+    padding-left: 10px;
+    padding-top: 20px;
+    border-radius: 20px 0px 20px 0px;
+    min-height: 80px;
+    
+}
+.subtitle-style{
+    font-size: small;
+    color: rgb(48, 47, 47);
+    font-family: Segoe UI;
+}
+
+.subsubtitle-style{
+    font-family: cursive;
+}
+
+.option-size{
+    font-size: small
+}
+
+.padding{
+    padding-left: 20px ;
+}
+
+
+.create-new{
+    background-color: rgba(230, 248, 230, 0.9);;
+    border-radius: 20px;
+    height: 100%;
+    min-height: 180px;
+    margin: 20px 20px 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-button{
+    padding: 20px;
+    background-color: rgb(45, 145, 233);
+    border-radius: 0px 20px 0px 20px;
+}
+
+.more{
+    /* align-items: center; */
+    position: absolute;
+    top: -7px;
+    /* background-color: blue; */
+    /* height: 100px; */
+    /* width: 100px; */
+    /* justify-content: center; */
+    /* flex-direction: row; */
+}
+
+::ng-deep .mat-select-arrow { 
+    opacity: 00%; 
+    width: 0px;
+    position: absolute;
+    /* background-color: brown; */
+}

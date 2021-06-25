@@ -1,0 +1,30 @@
+.bottomPartBackground{
+    background-color:darkgreen;
+    min-height: 280px;
+    padding: 20px;
+}
+
+.font-white{
+    color: white;
+}
+
+.font-navy{
+    color: navy;
+}
+
+.font-black{
+    color: black;
+}
+
+.font-large{
+    font-size: large;
+    font-family: cursive;
+}
+
+.font-medium{
+    font-size: medium;
+}
+
+.font-small{
+    font-size: small;
+}

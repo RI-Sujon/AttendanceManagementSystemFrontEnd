@@ -1,0 +1,52 @@
+<br>
+
+<div class="row">
+    <div class="col-sm-7 offset-md-3">
+        <div class="row mt-1 content-background">
+            <div class="col-md-12">
+                <h1 class="center"><b>EDIT COURSE INFO</b></h1>
+
+                <form [formGroup]="service.formModel" autocomplete="off" (submit)="editCourseBasicInfo()">
+                    <div class="form-group required">
+                        <label>Course ID</label>
+                        <input class="form-control" formControlName="CourseId" [ngModel]="course.courseId" disabled>
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('StudentName').touched && service.formModel.get('StudentName').errors?.required">This field is mandatory</label> -->
+                    </div>
+                    <div class="form-group required">
+                        <label>Course Name</label>
+                        <input class="form-control" formControlName="CourseName" [ngModel]="course.courseName">
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
+                    </div>
+                    
+                    <div class="form-group required">
+                        <label>Batch No</label>
+                        <input class="form-control" formControlName="BatchNo" [ngModel]="course.batchNo" disabled>
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid Email Address</label> -->
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">This field is mandatory</label> -->
+        
+                    </div>
+                    <div class="form-group required">
+                        <label>Teacher1 UserName</label>
+                        <input class="form-control" formControlName="Teacher1UserName" [ngModel]="course.teacher1UserName">
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('MobileNumber').touched && service.formModel.get('MobileNumber').errors?.required">This field is mandatory</label> -->
+                    </div>
+        
+                    <div class="form-group required">
+                        <label>Teacher2 UserName</label>
+                        <input class="form-control" formControlName="Teacher2UserName" [ngModel]="course.teacher2UserName">
+                        <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
+                    </div>
+                    
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 offset-md-3">
+                            <button type="submit" class="btn btn-lg btn-block" >SUBMIT</button>
+                            <br>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

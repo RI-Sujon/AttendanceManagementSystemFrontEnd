@@ -1,0 +1,37 @@
+.container{
+    width: 900px;
+    min-height: 1200px;
+    display: flex; 
+}
+
+.content-background {
+    color: black;
+    padding-bottom: 15px;
+}
+
+.content-background-padding{
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+    
+    background-color: rgba(123, 250, 123, 0.171);
+    border-radius: 10px;
+}
+
+
+.button-style{
+    font-family: sans-serif;
+    margin: 0px 10px 0px 10px;
+    border-bottom: 1px solid rgb(138, 133, 133);
+    background-color: aliceblue;
+    color: rgb(73, 65, 65);
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.back-button-style{
+    background-color: gray;
+    float: right;
+    margin: 0px 10px 0px 10px;
+}
+

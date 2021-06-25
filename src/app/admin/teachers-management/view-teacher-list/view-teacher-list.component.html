@@ -1,0 +1,56 @@
+<div class="row tile-style-headline">
+    <div class="col-sm-2">
+        <div>NAME </div>
+    </div>
+    <div class="col-sm-2">
+        <div>USERNAME</div>
+    </div>
+    <!-- <div class="col-sm-1">
+        <div> ROLL </div>
+    </div> -->
+    <div class="col-sm-2">
+        <div>POST</div>
+    </div>
+    <div class="col-sm-3">
+        <div>EMAIL</div>
+    </div>
+    <div class="col-sm-2">
+        <div>CONTACT NO</div>
+    </div>
+</div>
+<div *ngFor="let teacher of teachers">
+    <div class="row tile-style">
+        <div class="col-sm-2">
+            <p> {{teacher.teacherName}} </p>
+        </div>
+        <div class="col-sm-2">
+            <p> {{teacher.username}}</p>
+        </div>
+        <!-- <div class="col-sm-1">
+            <p> {{student.bsseroll}}</p>
+        </div> -->
+        <div class="col-sm-2">
+            <p>{{teacher.post}}</p>
+        </div>
+        <div class="col-sm-3">
+            <p>{{teacher.email}}</p>
+        </div>
+        <div class="col-sm-2">
+            <p>{{teacher.mobileNumber}}</p>
+        </div>
+        
+        <div class="col-sm-1 more-div">
+            
+            <button mat-icon-button class="more" (click)="mySelect.toggle()"><mat-icon>more_vert</mat-icon></button>
+            <mat-select #mySelect> 
+                <mat-option (click)="editTeacherInfo(teacher)">
+                    Edit Info
+                </mat-option>
+                <mat-option (click)="deleteAccount(teacher)">
+                    Delete
+                </mat-option>
+
+            </mat-select>
+        </div>
+    </div>
+</div> 

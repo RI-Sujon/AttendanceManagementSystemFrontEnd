@@ -1,0 +1,38 @@
+.tile-style{
+    background-color: rgba(59, 165, 252, 0.9);
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 5px;
+    font-family: cursive;
+    /* text-align: center; */
+}
+
+.tile-style-headline{
+    background-color: rgba(39, 9, 24, 0.9);
+    padding: 10px;
+    margin: 5px;
+    font-family: ROBOTO;
+    color: aliceblue;
+}
+
+.more-div{
+    position: relative;
+}
+
+.more{
+    /* align-items: center; */
+    position: absolute;
+    top: -7px;
+    /* background-color: blue; */
+    /* height: 100px; */
+    /* width: 100px; */
+    /* justify-content: center; */
+    /* flex-direction: row; */
+}
+
+::ng-deep .mat-select-arrow { 
+    opacity: 0%; 
+    width: 0px;
+    position: absolute;
+    /* background-color: brown; */
+}

@@ -1,0 +1,20 @@
+.content-background {
+    background-color: rgba(184, 252, 184, 0.9);
+    color: black;
+    padding: 15px;
+    margin: 15px;
+}
+
+.sidebar{
+    border-right: 1pt solid black;
+    padding: 10px;
+}
+
+.option-style{
+    font-family: sans-serif;
+    padding: 15px 10px 10px 10px;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(138, 133, 133);
+    background-color: rgb(200, 255, 200);
+}
+

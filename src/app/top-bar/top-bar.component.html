@@ -1,0 +1,15 @@
+<mat-toolbar class="mat-elevation-z6">
+    <span>
+        <img src="/assets/images/logo.png" height="40">
+        বাঁশবাগান 
+    </span>
+
+    <div class="spacer"></div>
+
+    <a mat-button routerLink="welcome-page" *ngIf="notLoggedIn">Home</a>
+    <a mat-button routerLink="student-login/loginModule" *ngIf="notLoggedIn">Student Account</a>
+    <a mat-button routerLink="admin-login/loginModule" *ngIf="notLoggedIn">Teacher Account</a>
+    <a mat-button *ngIf="loggedIn"><mat-icon>account_circle</mat-icon>{{userName}}</a>
+    <a mat-raised-button color="accent" routerLink="welcome-page" *ngIf="notLoggedIn">More</a>
+    <a mat-raised-button color="gray" *ngIf="loggedIn" (click)="sign_out()">Sign Out</a>
+</mat-toolbar>
