@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { Attendance } from 'src/app/model/attendance';
 import { Course } from 'src/app/model/course';
 import { Post } from 'src/app/model/post';
@@ -34,6 +35,8 @@ export class StreamComponent implements OnInit {
 
   teacher: Teacher | any;
   student: Student | any;
+
+  reload: any ;
   
   constructor(public service: CourseService, public service2: AttendanceAndPostService, public router: Router) { }
 
@@ -69,6 +72,20 @@ export class StreamComponent implements OnInit {
     }
 
     this.loadPosts();
+    this.reload = interval(5000).subscribe(
+      (value: any) => {
+        console.log("value:" + value);
+        
+        this.attendanceTrack = [];
+        this.loadPosts();
+      }
+    );
+
+    
+  }
+
+  ngOnDestroy(): void{
+    this.reload.unsubscribe() ;
   }
 
   loadPosts(){
@@ -135,6 +152,8 @@ export class StreamComponent implements OnInit {
   }
 
   deletePost(id: number){
+    alert("Delete Post");
+
       this.service2.deletePost(id).subscribe(
         response=>{
           this.loadPosts() ;

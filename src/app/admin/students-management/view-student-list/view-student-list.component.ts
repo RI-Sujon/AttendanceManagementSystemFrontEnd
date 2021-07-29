@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/model/student';
 import { StudentService } from 'src/app/shared/student.service';
@@ -12,7 +13,7 @@ export class ViewStudentListComponent implements OnInit {
   
   public students: Student[] = [] ;
 
-  constructor(private service: StudentService, private router: Router) { }
+  constructor(private service: StudentService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -25,20 +26,26 @@ export class ViewStudentListComponent implements OnInit {
     this.service.getAllStudents().subscribe(
       response => {
         this.students = response ;
-        console.log("succeed" );
       }
     );
   }
-
   deleteAccount(student:Student){
     var bsseroll = student.bsseroll ;
+    var email = student.email ;
 
-    this.service.deleteAccount(bsseroll).subscribe(
+    console.log("ttttttttttt");
+    
+    alert("Delete bsseroll: " + bsseroll + "  Student Name: " + student.studentName );
+
+    this.service.deleteAccount(bsseroll, email).subscribe(
       (response: any)=>{
         if(response==true)
         {
-          console.log("deleted");
+          this.snackBar.open(bsseroll + " has been deleted successfully", "",{duration: 2000});
           this.loadStudents() ;
+        }
+        else{
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
     }
     );

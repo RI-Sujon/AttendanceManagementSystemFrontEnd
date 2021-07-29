@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/model/course';
 import { CourseService } from 'src/app/shared/course.service';
@@ -12,7 +13,7 @@ export class ViewCourseListComponent implements OnInit {
 
   public courses: Course[] = [] ;
 
-  constructor(private service: CourseService, private router: Router) { }
+  constructor(private service: CourseService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -26,7 +27,6 @@ export class ViewCourseListComponent implements OnInit {
     this.service.getAllCourses().subscribe(
       response => {
         this.courses = response ;
-        console.log("succeed" );
       }
     );
   }
@@ -40,12 +40,16 @@ export class ViewCourseListComponent implements OnInit {
     var courseId = course.courseId ;
     var batchNo = course.batchNo ;
   
+    alert("Delete CourseId: " + courseId + "  Course Batch No: " + batchNo );
+
     this.service.deleteCourse(courseId, batchNo).subscribe(
       (response: any)=>{
         if(response==true)
         {
-          console.log("deleted");
+          this.snackBar.open(courseId + "(" + batchNo + ")" + " has been deleted successfully.", "",{duration: 2000});
           this.loadCourses() ;
+        }else{
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
     }
     );

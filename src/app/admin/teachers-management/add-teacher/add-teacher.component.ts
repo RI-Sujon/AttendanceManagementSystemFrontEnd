@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/admin.service';
 
@@ -9,7 +10,7 @@ import { AdminService } from 'src/app/shared/admin.service';
 })
 export class AddTeacherComponent implements OnInit {
 
-  constructor(public service: AdminService, public router: Router) { }
+  constructor(public service: AdminService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -24,6 +25,7 @@ export class AddTeacherComponent implements OnInit {
           this.service.addTeacherAccount2().subscribe(
             (response: any)=>{
               if(response=true){
+                this.snackBar.open("Account Created Successfully", "",{duration: 2000});
                 this.service.formModel.reset() ;
                 this.router.navigate(["admin/homepage"]) ;
               }
@@ -31,7 +33,7 @@ export class AddTeacherComponent implements OnInit {
           );
         }
         else{
-          console.log("account creation problem");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
       }
     ) ;

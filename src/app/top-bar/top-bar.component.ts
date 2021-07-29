@@ -25,7 +25,6 @@ export class TopBarComponent implements OnInit {
     this.subscriptionName= this.service.getUpdate().subscribe
              (message => {
                 this.messageReceived = message;
-                console.log("ssssssssssssss===");
                 this.ngOnInit() ;
              });
   }
@@ -42,8 +41,13 @@ export class TopBarComponent implements OnInit {
         this.loggedIn = true ;
         this.notLoggedIn = false ;
         
+        console.log(localStorage.getItem('user'));
+        
         this.teacher = localStorage.getItem('user') ;
+        
         this.teacher = JSON.parse(this.teacher);
+        console.log("===============>>>>>>"+this.teacher.teacherName);
+
         this.userName = this.teacher.teacherName ;
 
       }
@@ -64,6 +68,7 @@ export class TopBarComponent implements OnInit {
   sign_out(){
     localStorage.removeItem('isLoggedIn') ;
     localStorage.removeItem('user') ;
+    localStorage.removeItem('userToken') ;
     this.loggedIn = false ;
     this.notLoggedIn = true ;
     this.router.navigate(['welcome-page']) ;
@@ -73,4 +78,10 @@ export class TopBarComponent implements OnInit {
   ngOnDestroy() { 
     this.subscriptionName.unsubscribe();
   }
+
+  public _opened: boolean = false;
+
+  public _toggleSidebar() {
+    this._opened = !this._opened;
+  } 
 }

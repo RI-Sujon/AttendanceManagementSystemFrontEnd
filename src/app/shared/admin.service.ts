@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Teacher } from '../model/teacher';
 
 @Injectable({
@@ -10,14 +9,7 @@ import { Teacher } from '../model/teacher';
 
 export class AdminService {
 
-  public adminSubject: BehaviorSubject<Teacher> | any ;
-  public admin: Observable<Teacher> | any ;
-
-  constructor(private fb: FormBuilder, private http: HttpClient) 
-  { 
-    this.adminSubject = new BehaviorSubject<Teacher>(JSON.parse(localStorage.getItem('user') || '{}'));
-    this.admin = this.adminSubject.asObservable();
-  } 
+  constructor(private fb: FormBuilder, private http: HttpClient) { } 
 
   public surjiUrl = "http://localhost:5004/surji/admin/" ;
 
@@ -27,16 +19,15 @@ export class AdminService {
       "password": this.adminSignInformModel.value.password,
     }
 
-    return this.http.post<any>(this.surjiUrl + "signIn2", body);
+    return this.http.post<any>( this.surjiUrl + "signIn", body);
   }
 
-  public teacherSignInOperation(){
+  public getTeacherBasicInfo(){
     var body = {
       "username": this.adminSignInformModel.value.usernameOrEmail,
-      "password": this.adminSignInformModel.value.password,
     }
-
-    return this.http.post<any>(this.surjiUrl + "signIn", body);
+    
+    return this.http.post<any>(this.surjiUrl + "getTeacherInfo", body);
   }
 
   public addTeacherAccount(){
@@ -56,7 +47,7 @@ export class AdminService {
       "MobileNumber": this.formModel.value.MobileNumber,
     }
 
-    return this.http.post<any>(this.surjiUrl + "signUp2", body);
+    return this.http.post<any>(this.surjiUrl + "addTeacherInfo", body);
   }
 
   public getAllTeachers(){

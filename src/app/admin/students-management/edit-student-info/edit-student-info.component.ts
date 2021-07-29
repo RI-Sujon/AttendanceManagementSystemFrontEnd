@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Student } from 'src/app/model/student';
 import { StudentService } from 'src/app/shared/student.service';
@@ -12,7 +13,7 @@ export class EditStudentInfoComponent implements OnInit {
 
   student: Student = new Student ;
   
-  constructor(public service: StudentService, public router: Router) { }
+  constructor(public service: StudentService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -26,16 +27,16 @@ export class EditStudentInfoComponent implements OnInit {
   }
 
   editStudentInfo(): void{
-    console.log("===============>>>");
     this.service.editStudentInfo(this.student.id).subscribe(
       (response: any)=>{
         if(response=true){
-          console.log("aaaaaaaaaaaaaa");
+          this.snackBar.open("Student Info Edited", "",{duration: 2000});
           this.service.formModel.reset() ;
           this.router.navigate(["admin/students-management/view-list"]) ;
         }
         else{
-          console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
+
         }
       }
     ) ;

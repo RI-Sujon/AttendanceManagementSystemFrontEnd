@@ -26,8 +26,6 @@ export class StudentComponent implements OnInit {
   }
 
   loadCourses(){
-    console.log( this.student.studentName + "kk:" + this.student.bsseroll + "mobi" + this.student.email);
-    
     this.service.getAllCourseByStudentRoll(this.student.bsseroll).subscribe(
       response => {
         this.courses = response ;

@@ -14,12 +14,5 @@ export class AdminComponent implements OnInit {
     if(localStorage.getItem('isLoggedIn')!='admin'){
       this.router.navigate(["admin-login/loginModule"]);
     }
-  }
-
-  private _opened: boolean = false;
-
-  public _toggleSidebar() {
-    this._opened = !this._opened;
-  }  
-
+  } 
 }

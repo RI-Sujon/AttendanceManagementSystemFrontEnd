@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/model/course';
 import { CourseService } from 'src/app/shared/course.service';
@@ -12,7 +13,7 @@ export class EditCourseBasicInfoComponent implements OnInit {
 
   course: Course = new Course() ;
   
-  constructor(public service: CourseService, public router: Router) { }
+  constructor(public service: CourseService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -30,11 +31,12 @@ export class EditCourseBasicInfoComponent implements OnInit {
     this.service.editCourseBasicInfo(this.course.id).subscribe(
       (response: any)=>{
         if(response=true){
+          this.snackBar.open("Course Info Edited", "",{duration: 2000});
           this.service.formModel.reset() ;
           this.router.navigate(["admin/course-management/view-list"]) ;
         }
         else{
-          console.log("nnn");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
       }
     ) ;

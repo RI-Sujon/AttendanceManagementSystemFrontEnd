@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/model/course';
 import { CourseStudent } from 'src/app/model/course_student';
@@ -16,7 +17,7 @@ export class PeopleComponent implements OnInit {
   
   adminLoggedIn = false ;
 
-  constructor(public service:CourseService, public router: Router) { }
+  constructor(public service:CourseService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem("isLoggedIn")==null){
@@ -43,7 +44,6 @@ export class PeopleComponent implements OnInit {
     this.service.getAllStudentOfCourse(this.course.courseId, this.course.batchNo).subscribe(
       response => {
         this.studentsOfCourse = response ;
-        console.log("succeed" );
       }
     );
   }
@@ -52,11 +52,12 @@ export class PeopleComponent implements OnInit {
     this.service.addStudentToCourse(this.course.courseId, this.course.batchNo).subscribe(
       (response: any)=>{
         if(response=true){
+          this.snackBar.open("Student Added.", "",{duration: 2000});
           this.service.formModel.reset() ;
           this.loadStudentsOfCourse() ;
         }
         else{
-          console.log("account creation problem");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
       }
     ) ;
@@ -68,8 +69,11 @@ export class PeopleComponent implements OnInit {
       (response: any)=>{
         if(response==true)
         {
-          console.log("deleted");
+          this.snackBar.open(bsseRoll + " has been deleted Successfully.", "",{duration: 2000});
           this.loadStudentsOfCourse() ;
+        }
+        else{
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
     }
     );

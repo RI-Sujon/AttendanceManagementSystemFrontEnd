@@ -2,15 +2,17 @@
 
 <div class="row mt-1">
     <div class="col-md-12">
+        <h1 class="center"><b>EDIT TEACHER ACCOUNT INFO</b></h1>
         <form [formGroup]="service.formModel" autocomplete="off" (submit)="editTeacherInfo()">
             <div class="form-group required">
                 <label>Teacher Name</label>
                 <input class="form-control" formControlName="TeacherName" [ngModel]="teacher.teacherName">
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('StudentName').touched && service.formModel.get('StudentName').errors?.required">This field is mandatory</label> -->
             </div>
-            <div class="form-group required">
+            <div class="form-group">
                 <label>username</label>
-                <input class="form-control" formControlName="username" [ngModel]="teacher.username" disabled>
+                <input [readonly]=true style="background-color: aqua;" class="form-control" formControlName="username" [ngModel]="teacher.username"> 
+                <!-- disabled -->
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
             </div>
             

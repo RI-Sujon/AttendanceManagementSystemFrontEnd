@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { StudentService } from 'src/app/shared/student.service';
 
@@ -9,7 +10,7 @@ import { StudentService } from 'src/app/shared/student.service';
 })
 export class AddStudentComponent implements OnInit {
 
-  constructor(public service: StudentService, public router: Router) { }
+  constructor(public service: StudentService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!='admin'){
@@ -20,10 +21,11 @@ export class AddStudentComponent implements OnInit {
   addStudentAccount(): void{
     this.service.addStudentAccount().subscribe(
       (response: any)=>{
-        if(response=true){
+        if(response==true){
           this.service.addStudentAccount2().subscribe(
             (response: any)=>{
               if(response=true){
+                this.snackBar.open("Student Added", "",{duration: 2000});
                 this.service.formModel.reset() ;
                 this.router.navigate(["admin/homepage"]) ;
               }
@@ -31,7 +33,7 @@ export class AddStudentComponent implements OnInit {
           );
         }
         else{
-          console.log("problem");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
       }
     ) ;

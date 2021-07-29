@@ -87,6 +87,7 @@
                 <div class="post-body-for-attendance">
                     <br>
                     <div class="post-body-attendance-text">Attendance</div> 
+                    <div>{{post.dateAndTime | date:'EEEE - d MMMM, y'}}</div>
                 </div>
                 <div *ngIf="isStudent">
                     <div *ngIf="attendanceTrack[i]==='open'"><button mat-raised-button color="primary" (click)="giveAttendance(post.dateAndTime)">Add Attendance</button></div>

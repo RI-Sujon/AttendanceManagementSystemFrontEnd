@@ -43,7 +43,7 @@ export class StudentService {
       "MobileNumber": this.formModel.value.MobileNumber,
     }
 
-    return this.http.post<any>(this.surjiUrl + "signUp2", body);
+    return this.http.post<any>(this.surjiUrl + "addStudentBasicInfo", body);
   }
 
 
@@ -51,8 +51,12 @@ export class StudentService {
     return this.http.get<any>(this.surjiUrl + "getAll") ;
   }
 
-  public deleteAccount(bsseroll: any){
-    return this.http.post<any>(this.surjiUrl + "delete", bsseroll) ;
+  public deleteAccount(bsseroll: any, email: any){
+    var body = {
+      "BSSEROLL": bsseroll,
+      "Email": email,
+    }
+    return this.http.post<any>(this.surjiUrl + "delete", body) ;
   }
 
   public editStudentInfo(id: any){
@@ -71,18 +75,37 @@ export class StudentService {
   }
 
   public studentSignInOperation(){
-    var body = {
-      "Email": this.formModel.value.Email,
-      "password": this.formModel.value.Password,
+    var emailOrRoll = this.formModel.value.Email ;
+    var body ;
+    if(emailOrRoll.length <= 4){
+      body = {
+        "BSSEROLL": this.formModel.value.Email,
+        "password": this.formModel.value.Password,
+      }
+    }else{
+      body = {
+        "Email": this.formModel.value.Email,
+        "password": this.formModel.value.Password,
+      }
     }
 
     return this.http.post<any>(this.surjiUrl + "signIn", body) ;
-    // return this.http.post<any>(this.surjiUrl + "signIn", body)
-    // .pipe(map(student => {
-    //   localStorage.setItem('user', JSON.stringify(student));
-    //   this.studentSubject.next(student) ;
-    //   return student ;
-    // }));
+  }
+
+  public getStudentBasicInfo(){
+    var emailOrRoll = this.formModel.value.Email ;
+    var body ;
+    if(emailOrRoll.length <= 4){
+      body = {
+        "BSSEROLL": this.formModel.value.Email,
+      }
+    }else{
+      body = {
+        "Email": this.formModel.value.Email,
+      }
+    }
+
+    return this.http.post<any>(this.surjiUrl + "getStudentInfo", body) ;
   }
 
   formModel = this.formbuilder.group({

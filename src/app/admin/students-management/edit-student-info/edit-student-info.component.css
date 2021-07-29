@@ -3,3 +3,7 @@ input.form-control,input.form-control:focus{
     color: darkgreen;
     border: 1px solid #636b7b;
 }
+
+.center{
+    text-align: center;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/admin.service';
 import { CommonService } from 'src/app/shared/common.service';
@@ -10,11 +11,9 @@ import { CommonService } from 'src/app/shared/common.service';
 })
 export class AdminLoginModuleComponent implements OnInit {
 
-  constructor(public service: AdminService, public service2: CommonService, public router: Router) { }
+  constructor(public service: AdminService, public service2: CommonService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('isLoggedIn') + "===================");
-    
     if(localStorage.getItem('isLoggedIn')!=null){
       this.router.navigate(["welcome-page"]);
     }
@@ -23,39 +22,49 @@ export class AdminLoginModuleComponent implements OnInit {
   signIn(): void{
     var usernameOrEmail = this.service.adminSignInformModel.value.usernameOrEmail ;
 
-    if(usernameOrEmail[0]=='~'){
+    if(usernameOrEmail=='admin'){
       this.service.adminSignInOperation().subscribe(
         (response: any)=>{
-          if(response == true){
+          if(response != false){
             localStorage.setItem('isLoggedIn', "admin");
+            localStorage.setItem('userToken', response.tokenString)
             this.sendMessage() ;
             this.router.navigate(["admin/homepage"]) ;
             this.service.adminSignInformModel.reset() ;
           }
           else{
-            console.log("not succeed");
+            this.snackBar.open("Something wrong", "undo",{duration: 2000});
           }
         }
       ) ;
     }
     else{
-      this.service.teacherSignInOperation().subscribe(
+      this.service.adminSignInOperation().subscribe(
         (response: any)=>{
           if(response!=null){
             if(response==false){
-              console.log("username && password doesnot match.");
+              this.snackBar.open("username && password doesnot match.", "",{duration: 2000});
             }
             else{
-              localStorage.setItem('user', JSON.stringify(response));
               localStorage.setItem('isLoggedIn', "teacher");
-              this.sendMessage() ;
-              this.service.adminSignInformModel.reset() ;
-              this.router.navigate(["teacher"]) ;
+              localStorage.setItem('userToken', response.tokenString) ;
+            
+              this.service.getTeacherBasicInfo().subscribe(
+                (response: any)=>{
+                  if(response!=null){
+                    localStorage.setItem('user', JSON.stringify(response)) ;
+                    
+                    this.sendMessage() ;
+                    this.service.adminSignInformModel.reset() ;
+                    this.router.navigate(["teacher"]) ;
+                  }
+                }
+              )
             }
             //this.service.adminSignInformModel.reset() ;
           }
           else{
-            console.log("not succccccccccced");
+            this.snackBar.open("Something Wrong", "",{duration: 2000});
           }
         }
       ) ;

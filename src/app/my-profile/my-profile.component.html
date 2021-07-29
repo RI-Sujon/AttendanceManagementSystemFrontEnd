@@ -1,0 +1,60 @@
+<div class="row bodyStyle">
+    <div class="col-sm-4 verticalRow">
+        <div>
+            <h1><b>MY PROFILE</b></h1>
+        </div>
+        <div *ngIf="userType=='student'">
+            <h3 style="color: black;"><b>Name: {{student.studentName}}</b></h3> 
+            <div class="infoStyle">
+                <p>
+                    <b>Email:</b> {{student.email}} <br>
+                    <b>BSSE Roll:</b> {{student.bsseroll}} <br>
+                    <b>Session: </b>{{student.session}} <br>
+                    <b>BSSE Batch No:</b> {{student.batchNo}} <br>
+                    <b>Attatched Hall:</b> {{student.hallName}} <br>
+                    <b>Contact No:</b> {{student.mobileNumber}}
+                    </p>
+            </div>
+        </div>
+
+        <div *ngIf="userType=='teacher'">
+            <h3 style="color: black;"><b>Name: {{teacher.studentName}}</b></h3> 
+            <div class="infoStyle">
+                <b>Email:</b> {{teacher.email}} <br>
+            <b>USERNAME:</b> {{teacher.username}} <br>
+            <b>Post:</b> {{teacher.post}} <br>
+            <b>Contact No:</b> {{teacher.mobileNumber}}
+            </div>
+        </div>
+
+        <div *ngIf="userType=='admin'">
+            <h3 style="color: red;"><b>Admin Account</b></h3> 
+        </div>
+
+        <br>
+        <br>
+
+        <button mat-raised-button routerLink="/welcome-page">Back</button>
+    </div>
+    <div class="col-sm-6">
+        <button mat-raised-button (click)="changePasswordToggle()">Change Password</button>
+        <br><br>
+        <div *ngIf="wantToChangePassword" class="form-group required">
+            <label>Old Password</label>
+            <input class="form-control" type="password" [(ngModel)]="oldPassword">
+        </div>
+        <div *ngIf="wantToChangePassword" class="form-group required">
+            <label>New Password</label>
+            <input class="form-control" type="password" [(ngModel)]="newPassword">
+        </div>
+        
+        <br>
+        <div class="row" *ngIf="wantToChangePassword">
+            <div class="col-md-6 offset-md-5">
+                <button type="submit" class="btn btn-lg" (click)="changePassword()" >SUBMIT</button>
+                <br>
+            </div>
+            
+        </div>
+    </div>
+</div>

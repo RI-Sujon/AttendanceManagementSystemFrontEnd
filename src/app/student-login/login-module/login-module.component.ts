@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/common.service';
 import { StudentService } from 'src/app/shared/student.service';
@@ -11,7 +12,7 @@ import { StudentService } from 'src/app/shared/student.service';
 })
 export class LoginModuleComponent implements OnInit {
 
-  constructor(public service: StudentService, public service2: CommonService, public router: Router) { }
+  constructor(public service: StudentService, public service2: CommonService, public router: Router, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('isLoggedIn')!=null){
@@ -24,20 +25,28 @@ export class LoginModuleComponent implements OnInit {
       (response: any)=>{
         if(response != null){
           if(response==false){
-            console.log("username && password doesnot match.");
+            this.snackBar.open("username && password doesnot match.", "",{duration: 2000});
           }
           else{
-            localStorage.setItem('user', JSON.stringify(response));
             localStorage.setItem('isLoggedIn', "student");
-            this.service.formModel.reset() ;
-            this.sendMessage() ;
-            this.router.navigate(["student"]) ;
+            localStorage.setItem('userToken', response.tokenString) ;
+          
+            this.service.getStudentBasicInfo().subscribe(
+              (response: any)=>{
+                if(response!=null){
+                  localStorage.setItem('user', JSON.stringify(response)) ;
+                  
+                  this.sendMessage() ;
+                  this.service.formModel.reset() ;
+                  this.router.navigate(["student"]) ;
+                }
+              }
+            )
           }
         }
         else{
-          console.log("nnnnnnnn");
+          this.snackBar.open("Something Wrong", "",{duration: 2000});
         }
-
       }
     ) ;
   }
@@ -45,5 +54,4 @@ export class LoginModuleComponent implements OnInit {
   sendMessage(): void {
     this.service2.sendUpdate('loggedIn');
   }
-
 }

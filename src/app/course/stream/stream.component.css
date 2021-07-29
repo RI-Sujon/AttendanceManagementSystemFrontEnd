@@ -138,11 +138,12 @@ textarea.style {
     min-height: 120px;
     padding: 10px;
     width: 100%;
+    text-align: center;
 }
 
 .post-body-attendance-text{
     color: brown;
-    text-align: center;
+    
     padding: 10px;
     margin: 40px;
     font-family: Segoe UI;

@@ -7,10 +7,6 @@
     color: #fff
  }
 
- .top-bar-style{
-     position: fixed;
+ .margin{
+     margin: 0px 2px 0px 2px;
  }
-
- .top-bar-style2{
-    position: absolute;
-}

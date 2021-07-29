@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './student-login/registration/registration.component';
@@ -14,9 +13,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
 import { AdminLoginModuleComponent } from './admin-login/admin-login-module/admin-login-module.component';
-import { AdminRegistrationModuleComponent } from './admin-login/admin-registration-module/admin-registration-module.component';
 import { StudentService } from './shared/student.service';
 import { AdminService } from './shared/admin.service';
 import { HomepageComponent } from './admin/homepage/homepage.component';
@@ -42,7 +41,14 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { StudentLoginComponent } from './student-login/student-login.component'
 import { StudentComponent } from './student/student.component';
 import { AttendanceReportComponent } from './course/attendance-report/attendance-report.component';
+import { CourseService } from './shared/course.service';
+import { DatePipe } from '@angular/common';
+import { JwtModule } from '@auth0/angular-jwt';
+import { MyProfileComponent } from './my-profile/my-profile.component' ;
 
+export function tokenGetter(){
+  return localStorage.getItem("userToken");
+}
 
 @NgModule({
   declarations: [
@@ -55,7 +61,6 @@ import { AttendanceReportComponent } from './course/attendance-report/attendance
     BottomBarComponent,
     AdminComponent,
     AdminLoginModuleComponent,
-    AdminRegistrationModuleComponent,
     HomepageComponent,
     AdminLoginComponent,
     TeachersManagementComponent,
@@ -76,6 +81,7 @@ import { AttendanceReportComponent } from './course/attendance-report/attendance
     TeacherComponent,
     StudentLoginComponent,
     AttendanceReportComponent,
+    MyProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,9 +94,17 @@ import { AttendanceReportComponent } from './course/attendance-report/attendance
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    SidebarModule.forRoot()
+    MatSnackBarModule,
+    SidebarModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5004"],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [StudentService, AdminService],
+  providers: [StudentService, AdminService, CourseService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

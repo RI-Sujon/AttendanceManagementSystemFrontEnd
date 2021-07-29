@@ -2,7 +2,6 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLoginModuleComponent } from './admin-login/admin-login-module/admin-login-module.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
-import { AdminRegistrationModuleComponent } from './admin-login/admin-registration-module/admin-registration-module.component';
 import { AdminComponent } from './admin/admin.component';
 import { AddCourseComponent } from './admin/course-management/add-course/add-course.component';
 import { CourseManagementComponent } from './admin/course-management/course-management.component';
@@ -21,6 +20,8 @@ import { AttendanceReportComponent } from './course/attendance-report/attendance
 import { CourseComponent } from './course/course.component';
 import { PeopleComponent } from './course/people/people.component';
 import { StreamComponent } from './course/stream/stream.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AuthGuardService } from './shared/auth-guard.service';
 import { LoginModuleComponent } from './student-login/login-module/login-module.component';
 import { RegistrationComponent } from './student-login/registration/registration.component';
 import { StudentLoginComponent } from './student-login/student-login.component';
@@ -29,8 +30,7 @@ import { TeacherComponent } from './teacher/teacher.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 const routes: Routes = [
-  //{path: '', redirectTo: '/student/registration', pathMatch: 'full'},
-  {path: '', redirectTo: '/welcome-page', pathMatch: 'full'},
+  { path: '', redirectTo: '/welcome-page', pathMatch: 'full'},
   { path: 'welcome-page', component: WelcomePageComponent, },
   { path: 'more' , component: WelcomePageComponent } ,
   {
@@ -43,49 +43,47 @@ const routes: Routes = [
   {
     path: 'admin-login', component: AdminLoginComponent,
     children:[
-      { path: 'registration', component: AdminRegistrationModuleComponent},
       { path: 'loginModule', component: AdminLoginModuleComponent},
     ]
   },
   {
     path: 'admin', component: AdminComponent,
     children:[
-      { path: 'homepage', component: HomepageComponent },
+      { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuardService] },
       {
-        path: 'students-management', component: StudentsManagementComponent,
+        path: 'students-management', component: StudentsManagementComponent, canActivate: [AuthGuardService],
         children:[
-          { path: 'view-list', component: ViewStudentListComponent },
-          { path: 'add-student', component: AddStudentComponent },
-          { path: 'edit-info', component: EditStudentInfoComponent },
+          { path: 'view-list', component: ViewStudentListComponent , canActivate: [AuthGuardService]},
+          { path: 'add-student', component: AddStudentComponent , canActivate: [AuthGuardService]},
+          { path: 'edit-info', component: EditStudentInfoComponent , canActivate: [AuthGuardService]},
         ] 
       },
-      { path: 'teachers-management', component: TeachersManagementComponent, 
+      { path: 'teachers-management', component: TeachersManagementComponent, canActivate: [AuthGuardService], 
         children:[
-          { path: 'view-list', component: ViewTeacherListComponent },
-          { path: 'add', component: AddTeacherComponent },
-          { path: 'edit-info', component: EditTeacherInfoComponent },
+          { path: 'view-list', component: ViewTeacherListComponent , canActivate: [AuthGuardService]},
+          { path: 'add', component: AddTeacherComponent , canActivate: [AuthGuardService]},
+          { path: 'edit-info', component: EditTeacherInfoComponent , canActivate: [AuthGuardService]},
         ] 
       },
-      { path: 'course-management', component: CourseManagementComponent,
+      { path: 'course-management', component: CourseManagementComponent, canActivate: [AuthGuardService],
         children:[
-          { path: 'view-list', component: ViewCourseListComponent },
-          { path: 'create-new', component: AddCourseComponent },
-          { path: 'edit-info', component: EditCourseBasicInfoComponent },
+          { path: 'view-list', component: ViewCourseListComponent, canActivate: [AuthGuardService] },
+          { path: 'create-new', component: AddCourseComponent, canActivate: [AuthGuardService] },
+          { path: 'edit-info', component: EditCourseBasicInfoComponent, canActivate: [AuthGuardService] },
         ] 
       }
     ]
   },
-  { path: 'course', component: CourseComponent,
+  { path: 'course', component: CourseComponent, canActivate: [AuthGuardService],
     children:[
-      { path: 'stream', component: StreamComponent },
-      { path: 'people', component: PeopleComponent},
-      { path: 'attendance-report', component: AttendanceReportComponent}
+      { path: 'stream', component: StreamComponent, canActivate: [AuthGuardService] },
+      { path: 'people', component: PeopleComponent, canActivate: [AuthGuardService]},
+      { path: 'attendance-report', component: AttendanceReportComponent, canActivate: [AuthGuardService]}
     ]
   },
-  { path: 'teacher', component: TeacherComponent,
-  },
-  { path: 'student', component: StudentComponent,
-  }
+  { path: 'teacher', component: TeacherComponent, canActivate: [AuthGuardService]},
+  { path: 'student', component: StudentComponent, canActivate: [AuthGuardService]},
+  { path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

@@ -19,12 +19,15 @@
   }
 
   .option-style{
+/* overflow: auto; */
+    white-space: pre-wrap;
     font-family: ROBOTO;
-    padding: 15px 10px 10px 10px;
-    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 10px;
     font-weight: 500;
     color: black;
     margin-bottom: 10px;
+    text-align: left;
     background-color: rgb(178, 224, 198);
   }
   

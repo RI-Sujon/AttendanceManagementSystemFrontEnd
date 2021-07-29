@@ -24,7 +24,8 @@ export class AttendanceAndPostService {
   }
 
   public getAllPosts(courseId:string, batchNo:string){
-    return this.http.get<any>(this.surjiUrl + "post/getAll", {params: { "courseId" : courseId, "batchNo" : batchNo}}) ;
+    var body = { "courseId" : courseId, "batchNo" : batchNo} ;
+    return this.http.get<any>(this.surjiUrl + "post/getAll", {params: body}) ;
   }
 
   public deletePost(postId: any){

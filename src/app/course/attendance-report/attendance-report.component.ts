@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -38,10 +39,11 @@ export class AttendanceReportComponent implements OnInit {
   isFullReport = true ;
   isDailyReport = false ;
   isMonthlyReport = false ;
+  isLastCoupleOfDays = false ;
 
   toppings = new FormControl();
 
-  constructor(public router: Router, public service: CourseService, public service2: AttendanceAndPostService) { }
+  constructor(public router: Router, public service: CourseService, public service2: AttendanceAndPostService, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.user = localStorage.getItem("isLoggedIn") ;
@@ -104,6 +106,7 @@ export class AttendanceReportComponent implements OnInit {
       this.isDailyReport = true ;
       this.isFullReport = false ;
       this.isMonthlyReport = false ;
+      this.isLastCoupleOfDays = false ;
       this.selectedDate = this.allDateAndTime[0]  + "";
       this.dailyReport(null, this.allDateAndTime[0]);
     }
@@ -111,14 +114,33 @@ export class AttendanceReportComponent implements OnInit {
       this.isDailyReport = false ;
       this.isFullReport = false ;
       this.isMonthlyReport = true ;
+      this.isLastCoupleOfDays = false ;
       this.selectedMonth = this.allMonth[0] + "";
       this.monthlyReport(null, this.allMonth[0]);
+    }
+    else if(obj.value=="Last 7 Days"){
+      this.isDailyReport = false ;
+      this.isFullReport = false ;
+      this.isMonthlyReport = false ;
+      this.isLastCoupleOfDays = true ;
+  
+      this.lastCoupleOfDaysReport(7);
+    }
+    else if(obj.value=="Last 30 Days"){
+      this.isDailyReport = false ;
+      this.isFullReport = false ;
+      this.isMonthlyReport = false ;
+      this.isLastCoupleOfDays = true ;
+      this.selectedMonth = this.allMonth[0] + "";
+      
+      this.lastCoupleOfDaysReport(30);
     }
     else{
       this.selected = "All" ;
       this.isDailyReport = false ;
       this.isFullReport = true ;
       this.isMonthlyReport = false ;
+      this.isLastCoupleOfDays = false ;
       this.fullReport() ;
     }
   }
@@ -138,8 +160,12 @@ export class AttendanceReportComponent implements OnInit {
       }
 
       flag = 0 ;
-      for(var i=0 ; i<this.allMonth.length ; i++){
-        if(att.dateAndTime.getMonth==this.allMonth[i].getMonth && att.dateAndTime.getFullYear==this.allMonth[i].getFullYear){
+      for(var dateAndTime of this.allMonth){
+
+        var a = this.datePipe.transform(att.dateAndTime, "MM-yyyy") ;
+        var b = this.datePipe.transform(dateAndTime, "MM-yyyy") ;
+        
+        if(a==b){
           flag = 1 ;
           break ;
         }
@@ -219,7 +245,9 @@ export class AttendanceReportComponent implements OnInit {
     for(var attMap of this.attendanceMapWithBSSEROLL_list){
       var count = 0 ;
       for(var att of this.attendances){
-        if(att.dateAndTime.getMonth==dateAndTime.getMonth && att.dateAndTime.getFullYear==dateAndTime.getFullYear){
+        var a = this.datePipe.transform(att.dateAndTime, "MM-yyyy") ;
+        var b = this.datePipe.transform(dateAndTime, "MM-yyyy") ;
+        if(a==b){
           if(att.bsseroll==attMap.bsseRoll){
             count++ ;
           }
@@ -230,7 +258,9 @@ export class AttendanceReportComponent implements OnInit {
     }
 
     for(var date of this.allDateAndTime){
-      if(date.getMonth==dateAndTime.getMonth && date.getFullYear==dateAndTime.getFullYear){
+      var a = this.datePipe.transform(date, "MM-yyyy") ;
+      var b = this.datePipe.transform(dateAndTime, "MM-yyyy") ;
+      if(a==b){
         totalClassInMonth++ ;
       }
     }
@@ -241,6 +271,44 @@ export class AttendanceReportComponent implements OnInit {
     }
 
     this.totalAttendancePostCounter = totalClassInMonth ;
+  }
+
+  lastCoupleOfDaysReport(days: number){
+    this.clearAttMap();
+    
+    var totalClass = 0 ;
+    for(var attMap of this.attendanceMapWithBSSEROLL_list){
+      var count = 0 ;
+      for(var att of this.attendances){
+        var a = this.datePipe.transform(att.dateAndTime, "MM-yyyy") ;
+        let difference = Math.abs(new Date().getTime() - new Date(att.dateAndTime).getTime());
+        console.log(difference/1000/60/60+":=============================>>>>>>>"+difference);
+        
+        if(difference/1000/60/60 <= days*24){
+          if(att.bsseroll==attMap.bsseRoll){
+            count++ ;
+          }
+        }
+      }
+
+      attMap.attendanceCount = count ;
+    }
+
+    for(var date of this.allDateAndTime){
+      var a = this.datePipe.transform(date, "MM-yyyy") ;
+      let difference = Math.abs(new Date().getTime() - new Date(date).getTime());
+        console.log(difference/1000/60/60+":=================ff============>>>>>>>"+difference);
+      if(difference/1000/60/60 <= days*24){
+        totalClass++ ;
+      }
+    }
+
+    for(var attMap of this.attendanceMapWithBSSEROLL_list){
+      attMap.percentage = parseFloat(attMap.attendanceCount*100/totalClass + "").toFixed(2)
+      attMap.percentage = attMap.percentage + "%" ;
+    }
+
+    this.totalAttendancePostCounter = totalClass ;
   }
 }
 

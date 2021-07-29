@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Course } from '../model/course';
+import { CourseStudent } from '../model/course_student';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +63,7 @@ export class CourseService {
     return this.http.post<any>(this.surjiUrl + "addStudentToCourse", body);
   }
 
-  public getAllStudentOfCourse(courseId: string, batchNo: string){
+  public getAllStudentOfCourse(courseId: string, batchNo: string): Observable<CourseStudent[]>{
     var body = {
       "CourseId": courseId,
       "BatchNo": batchNo,

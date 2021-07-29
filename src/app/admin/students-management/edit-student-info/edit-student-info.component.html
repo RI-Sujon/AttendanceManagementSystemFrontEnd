@@ -2,15 +2,17 @@
 
 <div class="row mt-1">
     <div class="col-md-12">
+        <h1 class="center"><b>EDIT STUDENT ACCOUNT INFO</b></h1>
         <form [formGroup]="service.formModel" autocomplete="off" (submit)="editStudentInfo()">
             <div class="form-group required">
                 <label>Student Name</label>
                 <input class="form-control" formControlName="StudentName" name="studentName" [ngModel]="student.studentName">
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('StudentName').touched && service.formModel.get('StudentName').errors?.required">This field is mandatory</label> -->
             </div>
-            <div class="form-group required">
+            <div class="form-group">
                 <label>BSSE Roll</label>
-                <input class="form-control" formControlName="BSSEROLL" name="bsseRoll" [ngModel]="student.bsseroll" disabled>
+                <input [readonly]=true style="background-color: aqua;" class="form-control" formControlName="BSSEROLL" name="bsseRoll" [ngModel]="student.bsseroll">
+                <!-- disabled -->
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
             </div>
             <div class="form-group required">
@@ -28,9 +30,9 @@
                 <input class="form-control" formControlName="HallName" [ngModel]="student.hallName">
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('BSSEROLL').touched && service.formModel.get('BSSEROLL').errors?.required">This field is mandatory</label> -->
             </div>
-            <div class="form-group required">
+            <div class="form-group">
                 <label>Email</label>
-                <input class="form-control" formControlName="Email"  name="email" [ngModel]="student.email">
+                <input [readonly]=true style="background-color: aqua;" class="form-control" formControlName="Email"  name="email" [ngModel]="student.email">
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">Invalid Email Address</label> -->
                 <!-- <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">This field is mandatory</label> -->
 

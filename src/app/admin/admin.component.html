@@ -1,22 +1,11 @@
-<!-- <h1>Hello</h1>
-<ng-sidebar-container>
-    <ng-sidebar [(opened)]="_opened">
-      <p>Sidebar contents</p>
-    </ng-sidebar>
-  
-    <div ng-sidebar-content>
-      <button (click)="_toggleSidebar()">Toggle sidebar</button>
-    </div>
-</ng-sidebar-container>
- -->
 
 <div class="container-fluid text-center heightB">    
   <div class="row content">
     <div class="col-sm-2 sidenav text-left">
-      <div routerLink='/admin/homepage' routerLinkActive='active' class="option-style"> Home </div>
-      <div routerLink='/admin/students-management/view-list' routerLinkActive='active' class="option-style">Students Management</div>
-      <div routerLink='/admin/teachers-management/view-list' routerLinkActive='active' class="option-style">Teachers Management</div>
-      <div routerLink='/admin/course-management/view-list' routerLinkActive='active' class="option-style">Course Management</div>
+      <button mat-raised-button routerLink='/admin/homepage' routerLinkActive='active' class="option-style"> Home </button>
+      <button mat-raised-button routerLink='/admin/students-management/view-list' routerLinkActive='active' class="option-style">Students Management</button>
+      <button mat-raised-button routerLink='/admin/teachers-management/view-list' routerLinkActive='active' class="option-style">Teachers Management</button>
+      <button mat-raised-button routerLink='/admin/course-management/view-list' routerLinkActive='active' class="option-style">Course Management</button>
     </div>
     <div class="col-sm-10 text-left"> 
       <router-outlet></router-outlet>
